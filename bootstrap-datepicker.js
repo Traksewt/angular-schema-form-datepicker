@@ -57,22 +57,33 @@ angular.module('schemaForm').directive('pickADate', function() {
 
       //The view value
       ngModel.$formatters.push(function(value) {
+        value = formatDate(value);
         if (angular.isUndefined(value) || value === null) {
           return value;
         }
 
         //We set 'view' and 'highlight' instead of 'select'
         //since the latter also changes the input, which we do not want.
-        picker.set('view', value, {format: scope.format || defaultFormat});
-        picker.set('highlight', value, {format: scope.format || defaultFormat});
+        // picker.set('view', value, {format: scope.format || defaultFormat});
+        // picker.set('highlight', value, {format: scope.format || defaultFormat});
+
+        picker.set('select', value, {format: scope.format || defaultFormat});
 
         //piggy back on highlight to and let pickadate do the transformation.
         return picker.get('highlight', viewFormat);
       });
 
       ngModel.$parsers.push(function() {
-        return picker.get('select', scope.format || defaultFormat);
+        var dateObject = picker.get('select');
+        if (dateObject.getTime) {
+          return dateObject.getTime;
+        }
+        return dateObject ? dateObject.pick : null;
       });
+
+      ngModel.$render = function() {
+        element.html(picker.get('select', scope.format || defaultFormat));
+      };
 
       //bind once.
       if (angular.isDefined(attrs.minDate)) {
