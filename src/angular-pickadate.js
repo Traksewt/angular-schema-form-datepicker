@@ -74,7 +74,7 @@ angular.module('schemaForm').directive('pickADate', function() {
 
       ngModel.$parsers.push(function() {
         var dateObject = picker.get('select');
-        if (dateObject.getTime) {
+        if (dateObject && dateObject.getTime) {
           return dateObject.getTime;
         }
         return dateObject ? dateObject.pick : null;
