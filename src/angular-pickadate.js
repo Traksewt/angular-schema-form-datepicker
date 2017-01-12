@@ -20,6 +20,7 @@ angular.module('schemaForm').directive('pickADate', function() {
       minDate: '=',
       maxDate: '=',
       format: '=',
+      container: '=',
       selectYears: '=?',
       selectMonths: '=?'
     },
@@ -38,7 +39,8 @@ angular.module('schemaForm').directive('pickADate', function() {
         },
         formatSubmit: null,
         selectYears: (scope.selectYears || false),
-        selectMonths: (scope.selectMonths || false)
+        selectMonths: (scope.selectMonths || false),
+        container: scope.container
       };
       if (scope.pickADate) {
         angular.extend(opts, scope.pickADate);
