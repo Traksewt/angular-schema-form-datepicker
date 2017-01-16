@@ -90,18 +90,20 @@ angular.module('schemaForm').directive('pickADate', function() {
       //bind once.
       if (angular.isDefined(attrs.minDate)) {
         var onceMin = scope.$watch('minDate', function(value) {
+          console.log('inside minDate: ' + value)
           if (value) {
             picker.set('min', formatDate(value));
-            onceMin();
+            // onceMin();
           }
         }, true);
       }
 
       if (angular.isDefined(attrs.maxDate)) {
         var onceMax = scope.$watch('maxDate', function(value) {
+          console.log('inside maxDate: ' + value)
           if (value) {
             picker.set('max', formatDate(value));
-            onceMax();
+            // onceMax();
           }
         }, true);
       }
